@@ -8,15 +8,10 @@ class WordGame{
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         File file = new File("words.txt");
-
-        System.out.println("Enter a word: ");
         String word = pickWord(file);
-        System.out.println(searchWord(file, word));
 
-        char[] chars = shuffleCharacter(word);
-        for(int i = 0; i < chars.length; i++){
-            System.out.print(chars[i] + " ");
-        }
+        displayLetters(word);
+        System.out.println(searchWord(file, word));
 
         scan.close();
     }
@@ -82,6 +77,15 @@ class WordGame{
         }
 
         return characterArray;
+    }
+
+    //Print shuffled characters in the terminal in right format
+    public static void displayLetters(String word){
+        char[] chars = shuffleCharacter(word);
+        for(int i = 0; i < chars.length; i++){
+            System.out.format("%7s", chars[i]);
+        }
+        System.out.println();
     }
 
     //Search for the given word in the file
