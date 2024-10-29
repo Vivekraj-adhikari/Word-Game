@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.io.File;
 
@@ -9,8 +11,12 @@ class WordGame{
 
         System.out.println("Enter a word: ");
         String word = pickWord(file);
-
         System.out.println(searchWord(file, word));
+
+        char[] chars = shuffleCharacter(word);
+        for(int i = 0; i < chars.length; i++){
+            System.out.print(chars[i] + " ");
+        }
 
         scan.close();
     }
@@ -59,6 +65,24 @@ class WordGame{
         return true;
     }
 
+    //Shuffle characters of the word and return the character array
+    public static char[] shuffleCharacter(String s){
+        ArrayList<Character> chars = new ArrayList<>();
+        char[] characterArray = new char[s.length()];
+        for (char c : s.toCharArray()) {
+            chars.add(c);
+        }
+
+        Collections.shuffle(chars);
+
+        int i = 0;
+        for (char c : chars) {
+            characterArray[i] = c;
+            i++;
+        }
+
+        return characterArray;
+    }
 
     //Search for the given word in the file
     public static String searchWord(File file, String target){
