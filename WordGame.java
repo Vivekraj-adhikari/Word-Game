@@ -15,11 +15,18 @@ class WordGame{
         scan.close();
     }
 
+    //Picks a random word with 7 distinct letters
     public static String pickWord(File file){
         Random random = new Random();
         try{
+            int currentLine = 1;
+            int startLine = random.nextInt(8520);
             Scanner sc = new Scanner(file);
-            boolean wordPicked = false;
+
+            while(currentLine < startLine && sc.hasNextLine()){
+                sc.nextLine();
+                currentLine++;
+            }
 
             while(sc.hasNextLine()){
                 String temp = sc.nextLine();
@@ -34,10 +41,11 @@ class WordGame{
         catch(Exception e){
             System.out.println("An error occurred while reading the file.");
         }
-
         return "Not found";
     }
 
+
+    //Checks if all the characters of the word are unique
     public static boolean areCharactersUnique(String s){
         boolean[] seenChars = new boolean[256];
 
@@ -51,6 +59,8 @@ class WordGame{
         return true;
     }
 
+
+    //Search for the given word in the file
     public static String searchWord(File file, String target){
         try{
             Scanner sc = new Scanner(file);
