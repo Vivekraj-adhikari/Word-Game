@@ -13,7 +13,7 @@ class WordGame{
 
         int score = 0; // Initial Score
 
-        ArrayList<String> inputString = new ArrayList<>(10); // List to store words inputed by the user.
+        ArrayList<String> inputString = new ArrayList<>(); // List to store words inputed by the user.
 
         shuffleCharacter(word); // Shuffling the words of the picked word
 
