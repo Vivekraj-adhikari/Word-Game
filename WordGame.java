@@ -8,10 +8,41 @@ class WordGame{
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         File file = new File("words.txt");
-        String word = pickWord(file);
 
-        displayLetters(word);
-        System.out.println(searchWord(file, word));
+        String word = pickWord(file); // Picking a random 7 lettered word from the file
+
+        int score = 0; // Initial Score
+
+        ArrayList<String> inputString = new ArrayList<>(10); // List to store words inputed by the user.
+
+        shuffleCharacter(word); // Shuffling the words of the picked word
+
+        displayLetters(word); //Displaying letters of the shuffled word
+
+        String option; // To store the option check the input given by the user
+        do{
+            option = scan.nextLine();
+
+            switch (option) {
+                case "mix":
+                    shuffleCharacter(word);
+                    displayLetters(word);
+                    displayScore(score);
+                    break;
+                
+                case "ls":
+                    displayInputStrings(inputString);
+                    displayScore(score);
+                    break;
+
+                default:
+                    score = updateScore(score, option, file);
+                    displayScore(score);
+                    storeInputStrings(option, inputString);
+                    break;
+            }
+
+        }while(option.compareTo("bye") != 0);
 
         scan.close();
     }
@@ -88,8 +119,45 @@ class WordGame{
         System.out.println();
     }
 
+    //Store input words in a list
+    public static ArrayList<String> storeInputStrings(String s, ArrayList<String> inputStrings){
+        inputStrings.add(s);
+        return inputStrings;
+    }
+
+    //Display all the strings that was inputted by the user
+    public static void displayInputStrings(ArrayList<String> inputStrings){
+        for(String s: inputStrings){
+            System.out.println("   " + s);
+        }
+    }
+
+    //Update score based on input
+    public static int updateScore(int score, String s, File file){
+        int newScore = score;
+        if(searchWord(file, s)){
+            if(s.length() < 4){
+                newScore = score;
+            }
+
+            else if(s.length() == 4){
+                newScore = score + 1;
+            }
+
+            else{
+                newScore = score + s.length();
+            }
+        }
+
+        return newScore;
+    }
+
+    public static void displayScore(int score){
+        System.out.println("Score: " + score);
+    }
+
     //Search for the given word in the file
-    public static String searchWord(File file, String target){
+    public static boolean searchWord(File file, String target){
         try{
             Scanner sc = new Scanner(file);
 
@@ -97,7 +165,7 @@ class WordGame{
                 String temp = sc.nextLine();
 
                 if(temp.equals(target)){
-                    return temp;
+                    return true;
                 }
             }
 
@@ -107,6 +175,6 @@ class WordGame{
             System.out.println("An error occurred while reading the file.");
         }
 
-        return "Word not found";
+        return false;
     }
 }
