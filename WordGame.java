@@ -6,8 +6,8 @@ import java.io.File;
 
 class WordGame{
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        File file = new File("words.txt");
+        Scanner scan = new Scanner(System.in); //Scanner class to take inputs
+        File file = new File("words.txt"); //Opening the file
 
         String word = pickWord(file); // Picking a random 7 lettered word from the file
 
@@ -15,7 +15,7 @@ class WordGame{
 
         ArrayList<String> inputString = new ArrayList<>(); // List to store words inputed by the user.
 
-        shuffleCharacter(word); // Shuffling the words of the picked word
+        shuffleCharacter(word); // Shuffling the letters of the picked word
 
         displayLetters(word); //Displaying letters of the shuffled word
 
@@ -120,9 +120,8 @@ class WordGame{
     }
 
     //Store input words in a list
-    public static ArrayList<String> storeInputStrings(String s, ArrayList<String> inputStrings){
+    public static void storeInputStrings(String s, ArrayList<String> inputStrings){
         inputStrings.add(s);
-        return inputStrings;
     }
 
     //Display all the strings that was inputted by the user
@@ -151,7 +150,7 @@ class WordGame{
 
         return newScore;
     }
-
+    //Displays Score
     public static void displayScore(int score){
         System.out.println("Score: " + score);
     }
